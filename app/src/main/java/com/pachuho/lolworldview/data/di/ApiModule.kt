@@ -1,12 +1,14 @@
 package com.pachuho.lolworldview.data.di
 
-import com.pachuho.lolworldview.data.remote.LoggingInterceptor
+import com.pachuho.lolworldview.Constants
+import com.pachuho.lolworldview.data.interceptor.LoggerInterceptor
 import com.pachuho.lolworldview.data.remote.ChampionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -14,17 +16,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-    @Provides
-    @Singleton
-    fun provideLoggingInterceptor(): LoggingInterceptor {
-        return LoggingInterceptor()
-    }
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor: LoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(
+        loggerInterceptor: LoggerInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
+            .addInterceptor(HttpLoggingInterceptor(loggerInterceptor).setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     }
 
@@ -32,7 +31,7 @@ object ApiModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://ddragon.leagueoflegends.com/cdn/14.14.1/")
+            .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()

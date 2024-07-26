@@ -1,24 +1,33 @@
 package com.pachuho.lolworldview.data.utils
 
+import com.pachuho.lolworldview.data.model.ChampionResponse
 import com.pachuho.lolworldview.ui.utils.UiState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.FlowCollector
 import retrofit2.Response
 
-inline fun <T, R> Response<T>.fetch(
-    crossinline transform: (T) -> R
-): Flow<UiState<R>> = flow {
-    emit(UiState.Loading)
-
-    if (isSuccessful) {
-        val body = body()
-        if (body != null) {
-            emit(UiState.Success(transform(body)))
-        } else {
-            throw EmptyBodyException("[${code()}] - ${raw()}")
+suspend fun <T> FlowCollector<UiState<T>>.fetch(response: Response<ChampionResponse<T>>) {
+    if (response.isSuccessful) {
+        response.body()?.let {
+            emit(UiState.Success(it.toList().first()))
+        } ?: run {
+            throw EmptyBodyException(getException(response))
         }
     } else {
-        throw NetworkFailureException("[${code()}] - ${raw()}")
+        throw NetworkFailureException(getException(response))
     }
-}.catch { emit(UiState.Error(it)) }
+}
+
+suspend fun <T> FlowCollector<UiState<List<T>>>.fetchList(response: Response<ChampionResponse<T>>) {
+    if (response.isSuccessful) {
+        response.body()?.let {
+            emit(UiState.Success(it.toList()))
+        } ?: run {
+            throw EmptyBodyException(getException(response))
+        }
+    } else {
+        throw NetworkFailureException(getException(response))
+    }
+}
+
+private fun<T> getException(response: Response<T>) =
+    "code: ${response.code()}\nmessage: ${response.raw()}"

@@ -6,6 +6,6 @@ import com.pachuho.lolworldview.ui.utils.UiState
 import kotlinx.coroutines.flow.Flow
 
 interface LOLRepository {
-    suspend fun getAllChampions(): Flow<UiState<List<Champion>>>
-    suspend fun getChampionInfo(championId: String): Flow<UiState<ChampionInfo>>
+    fun getAllChampions(): Flow<UiState<List<Champion>>>
+    fun getChampionInfo(championId: String): Flow<UiState<ChampionInfo>>
 }
