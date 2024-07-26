@@ -2,8 +2,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.hiltAndroid)
-    kotlin("kapt")
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -76,8 +77,9 @@ dependencies {
     debugImplementation(libs.ui.tooling)
 
     // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt)
+    implementation(libs.androidx.hilt)
+    ksp(libs.hilt.android.compiler)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -88,16 +90,12 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     // Serialize
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 
     // Glide
     implementation(libs.glide.compose)
 
 
-}
-
-kapt {
-    correctErrorTypes = true
 }
