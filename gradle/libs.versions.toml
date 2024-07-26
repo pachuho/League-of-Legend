@@ -13,6 +13,7 @@ compose-bom = "2023.08.00"
 hilt = "2.51.1"
 hilt-navigation = "1.2.0"
 ksp = "2.0.0-1.0.23"
+material3-android = "1.2.1"
 moshi = "1.15.1"
 okhttp = "4.12.0"
 logging-interceptor = "4.12.0"
@@ -20,6 +21,7 @@ retrofit = "2.11.0"
 
 [libraries]
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
+androidx-material3-android = { module = "androidx.compose.material3:material3-android", version.ref = "material3-android" }
 glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -41,7 +43,6 @@ ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 hilt = { group = 'com.google.dagger', name = 'hilt-android', version.ref = "hilt"}
 androidx-hilt = { group = 'androidx.hilt', name = 'hilt-navigation-compose', version.ref = "hilt-navigation"}
