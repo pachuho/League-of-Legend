@@ -15,6 +15,7 @@ hilt-navigation = "1.2.0"
 ksp = "2.0.0-1.0.23"
 material3-android = "1.2.1"
 moshi = "1.15.1"
+navigation-compose = "2.5.1"
 okhttp = "4.12.0"
 logging-interceptor = "4.12.0"
 retrofit = "2.11.0"
@@ -22,6 +23,7 @@ retrofit = "2.11.0"
 [libraries]
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
 androidx-material3-android = { module = "androidx.compose.material3:material3-android", version.ref = "material3-android" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }

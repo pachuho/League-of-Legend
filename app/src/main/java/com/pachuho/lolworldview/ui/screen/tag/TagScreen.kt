@@ -1,4 +1,4 @@
-package com.pachuho.lolworldview.ui.screen.role
+package com.pachuho.lolworldview.ui.screen.tag
 
 import android.widget.Toast
 import androidx.annotation.DrawableRes
@@ -26,18 +26,19 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.ChampionTag
+import com.pachuho.lolworldview.ui.screen.componets.PagerHelper
 
 @Composable
-fun RoleScreen() {
+fun TagScreen(
+    onClickTag: (ChampionTag) -> Unit
+) {
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         var currentPage by remember { mutableIntStateOf(0)}
         var offset by remember { mutableIntStateOf(0) }
         val offsetStep = 80
-        val context = LocalContext.current
 
         ImageWithoutUnBounds(R.drawable.ic_background1, offset.dp)
         PagerHelper(
@@ -50,20 +51,14 @@ fun RoleScreen() {
                 R.drawable.ic_role_support,
             ),
             onPageChanged = {
-                currentPage = when {
-                    currentPage > it -> {
-                        offset += offsetStep
-                        it
-                    }
-                    currentPage < it -> {
-                        offset -= offsetStep
-                        it
-                    }
-                    else -> currentPage
+                when {
+                    currentPage > it -> offset += offsetStep
+                    currentPage < it -> offset -= offsetStep
                 }
+                currentPage = it
             },
             onClick = {
-                Toast.makeText(context, ChampionTag.entries[it].name, Toast.LENGTH_SHORT).show()
+                onClickTag(ChampionTag.entries[it])
             }
         )
     }
@@ -95,5 +90,5 @@ private fun ImageWithoutUnBounds(
 @Composable
 @Preview(showBackground = true, widthDp = 320, heightDp = 640)
 fun CategoryScreenPreview() {
-    RoleScreen()
+    TagScreen {}
 }
