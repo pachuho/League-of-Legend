@@ -29,5 +29,5 @@ suspend fun <T> FlowCollector<UiState<List<T>>>.fetchList(response: Response<Cha
     }
 }
 
-private fun<T> getException(response: Response<T>) =
+fun<T> getException(response: Response<T>) =
     "code: ${response.code()}\nmessage: ${response.raw()}"

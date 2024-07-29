@@ -1,6 +1,6 @@
 package com.pachuho.lolworldview.ui.screen.champion
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,15 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.Champion
 import com.pachuho.lolworldview.ui.theme.Gold200
@@ -28,7 +25,8 @@ import com.pachuho.lolworldview.ui.theme.Gold200
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ChampionCard(
-    champion: Champion
+    champion: Champion,
+    oncClick: (String) -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxWidth(),
@@ -38,8 +36,11 @@ fun ChampionCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-                .clip(RoundedCornerShape(16.dp)),
+                .clip(RoundedCornerShape(16.dp))
+                .clickable { oncClick(champion.id) },
             model = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg",
+            loading = placeholder(R.drawable.ic_background3),
+            failure = placeholder(R.drawable.ic_timo_card),
             contentScale = ContentScale.Crop,
             contentDescription = null
         )
@@ -74,5 +75,5 @@ fun ChampionCardPreview() {
             "the Darkin Blade",
             listOf("Fighter"),
         )
-    )
+    ) {}
 }

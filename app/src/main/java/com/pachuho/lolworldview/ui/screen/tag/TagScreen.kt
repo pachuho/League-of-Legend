@@ -18,22 +18,32 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pachuho.lolworldview.R
+import com.pachuho.lolworldview.data.model.Champion
 import com.pachuho.lolworldview.data.model.ChampionTag
+import com.pachuho.lolworldview.ui.utils.showToast
+import com.pachuho.lolworldview.ui.utils.successOrNull
 
 @Composable
 fun TagScreen(
-    onClickTag: (ChampionTag) -> Unit
+    viewModel: TagViewModel = hiltViewModel(),
+    onClick: (List<Champion>) -> Unit
 ) {
+    val context = LocalContext.current
+    val champions = viewModel.champions.collectAsStateWithLifecycle()
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        var currentPage by remember { mutableIntStateOf(0)}
+        var currentPage by remember { mutableIntStateOf(0) }
         var offset by remember { mutableIntStateOf(0) }
         val offsetStep = 80
 
@@ -54,8 +64,14 @@ fun TagScreen(
                 }
                 currentPage = it
             },
-            onClick = {
-                onClickTag(ChampionTag.entries[it])
+            onClick = { page ->
+                champions.value.successOrNull()?.let {
+                    it.filter { it.tags?.first() == ChampionTag.entries[page].name }
+                        .let(onClick)
+
+                } ?: run {
+                    context.showToast(context.getString(R.string.fail_champions))
+                }
             }
         )
     }
@@ -67,11 +83,13 @@ private fun ImageWithoutUnBounds(
     offset: Dp
 ) {
     val painter = painterResource(id = id)
-    val animatedOffset by animateDpAsState(targetValue = offset, label = "",
+    val animatedOffset by animateDpAsState(
+        targetValue = offset, label = "",
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessLow
-        ))
+        )
+    )
 
     Image(
         modifier = Modifier
