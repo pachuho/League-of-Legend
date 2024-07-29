@@ -64,7 +64,7 @@ fun LOLWorldviewTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = lolTypography,
         content = content
     )
 }

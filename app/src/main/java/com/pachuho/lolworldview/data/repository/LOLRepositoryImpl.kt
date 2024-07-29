@@ -14,7 +14,7 @@ import javax.inject.Inject
 class LOLRepositoryImpl @Inject constructor(
     private val championService: ChampionService
 ) : LOLRepository {
-    override fun getAllChampions(): Flow<UiState<List<Champion>>>  = flow {
+    override fun getAllChampions(): Flow<UiState<List<Champion>>> = flow {
         fetchList(championService.fetchAllChampions())
     }.catch { emit(UiState.Error(it)) }
 

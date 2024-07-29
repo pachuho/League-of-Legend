@@ -1,4 +1,4 @@
-package com.pachuho.lolworldview.ui.screen.componets
+package com.pachuho.lolworldview.ui.screen.tag
 
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
@@ -19,6 +19,7 @@ import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -29,14 +30,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import animatePagerTransition
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.ChampionTag
-import com.pachuho.lolworldview.ui.theme.AppFont
 import com.pachuho.lolworldview.ui.theme.Gold400
 import kotlinx.coroutines.launch
 
@@ -58,6 +56,7 @@ fun PagerHelper(
         CompositionLocalProvider(
             LocalOverscrollConfiguration provides null
         ) {
+
             HorizontalPager(
                 modifier = modifier,
                 state = pagerState,
@@ -82,10 +81,8 @@ fun PagerHelper(
                     Text(
                         modifier = Modifier.animatePagerTransition(pagerState, page),
                         text = ChampionTag.entries[page].name,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
                         color = Gold400,
-                        fontFamily = AppFont.lol
+                        style = MaterialTheme.typography.headlineMedium
                     )
                 }
             }

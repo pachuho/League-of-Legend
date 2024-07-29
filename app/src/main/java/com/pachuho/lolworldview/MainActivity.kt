@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.pachuho.lolworldview.ui.LeagueOfLegendApp
 import com.pachuho.lolworldview.ui.theme.LOLWorldviewTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,12 +24,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             LOLWorldviewTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    LeagueOfLegendApp()
-                }
+                LeagueOfLegendApp()
             }
         }
     }

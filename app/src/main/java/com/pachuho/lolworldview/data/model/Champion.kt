@@ -8,6 +8,7 @@ import com.squareup.moshi.JsonClass
 data class Champion(
     @field:Json(name = "id") val id: String,
     @field:Json(name = "name") val name: String,
+    @field:Json(name = "title") val title: String,
     @field:Json(name = "tags") val tags: List<String>? = null
 ) {
     fun getTag(): ChampionTag? {

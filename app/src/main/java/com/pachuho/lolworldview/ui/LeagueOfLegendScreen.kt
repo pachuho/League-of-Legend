@@ -1,16 +1,13 @@
 package com.pachuho.lolworldview.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.pachuho.lolworldview.ui.screen.champion.ChampionScreen
 import com.pachuho.lolworldview.ui.screen.tag.TagScreen
 
@@ -30,12 +27,16 @@ fun LeagueOfLegendApp(
     ) {
         composable(route = LeagueOfLegendScreen.Role.name) {
             TagScreen {
-                navController.navigate(LeagueOfLegendScreen.Champion.name)
+                navController.navigate("${LeagueOfLegendScreen.Champion.name}/$it")
             }
         }
-        composable(route = LeagueOfLegendScreen.Champion.name) {
-            ChampionScreen {
-                navController.navigate(LeagueOfLegendScreen.Detail.name)
+        composable(
+            route = LeagueOfLegendScreen.Champion.name + "/{tag}",
+            arguments = listOf(navArgument("tag") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString("tag").let {
+                Log.i("ChampionScreen", "call")
+                ChampionScreen(it, navController)
             }
         }
         composable(route = LeagueOfLegendScreen.Detail.name) {

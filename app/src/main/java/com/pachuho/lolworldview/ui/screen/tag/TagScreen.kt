@@ -1,6 +1,5 @@
 package com.pachuho.lolworldview.ui.screen.tag
 
-import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -19,14 +18,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.ChampionTag
-import com.pachuho.lolworldview.ui.screen.componets.PagerHelper
 
 @Composable
 fun TagScreen(
