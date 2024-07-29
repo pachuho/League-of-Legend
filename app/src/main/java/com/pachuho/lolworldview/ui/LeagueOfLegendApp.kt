@@ -11,9 +11,12 @@ import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.Screen
 import com.pachuho.lolworldview.data.model.Champion
 import com.pachuho.lolworldview.ui.screen.champion.ChampionScreen
+import com.pachuho.lolworldview.ui.screen.detail.DetailScreen
 import com.pachuho.lolworldview.ui.screen.tag.TagScreen
 import com.pachuho.lolworldview.ui.utils.NavigationAnimation
+import com.pachuho.lolworldview.ui.utils.deserialize
 import com.pachuho.lolworldview.ui.utils.deserializeList
+import com.pachuho.lolworldview.ui.utils.serialize
 import com.pachuho.lolworldview.ui.utils.serializeList
 import com.pachuho.lolworldview.ui.utils.showToast
 
@@ -51,9 +54,9 @@ fun LeagueOfLegendApp(
             ) { backStackEntry ->
                 backStackEntry.arguments?.getString(Screen.Champion.argument).let {
                     it?.deserializeList<Champion>()?.let { champions ->
-                        ChampionScreen(champions) { championId ->
+                        ChampionScreen(champions) { champion ->
                             navController.navigate(
-                                Screen.Detail.createRoute(championId)
+                                Screen.Detail.createRoute(champion.serialize())
                             )
                         }
                     } ?: run {
@@ -66,8 +69,19 @@ fun LeagueOfLegendApp(
             composable(
                 route = Screen.Detail.route,
                 arguments = Screen.Detail.navArguments,
+                enterTransition = enterTransition,
+                exitTransition = exitTransition,
+                popEnterTransition = popEnterTransition,
+                popExitTransition = popExitTransition
             ) { backStackEntry ->
                 backStackEntry.arguments?.getString(Screen.Detail.argument).let {
+                    it?.deserialize<Champion>()?.let {
+                        DetailScreen(it)
+                    } ?: run {
+                        LaunchedEffect(Unit) {
+                            context.showToast(context.getString(R.string.fail_champions))
+                        }
+                    }
                 }
             }
         }

@@ -11,6 +11,16 @@ fun Context.showToast(message: String?) {
     }
 }
 
+inline fun <reified T> T.serialize(): String? {
+    val adapter = moshi.adapter(T::class.java)
+    return adapter.toJson(this)
+}
+
+inline fun <reified T> String.deserialize(): T? {
+    val adapter = moshi.adapter(T::class.java)
+    return adapter.fromJson(this)
+}
+
 inline fun <reified T> List<T>.serializeList(): String? {
     val type = Types.newParameterizedType(List::class.java, T::class.java)
     val adapter = moshi.adapter<List<T>>(type)
