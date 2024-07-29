@@ -64,7 +64,7 @@ fun PagerHelper(
                     state = pagerState,
                     pagerSnapDistance = PagerSnapDistance.atMost(0)
                 ),
-                contentPadding = PaddingValues(horizontal = 80.dp),
+                contentPadding = PaddingValues(horizontal = 90.dp),
                 pageSpacing = (-10).dp
             ) { page ->
                 Column(
@@ -82,7 +82,7 @@ fun PagerHelper(
                         modifier = Modifier.animatePagerTransition(pagerState, page),
                         text = ChampionTag.entries[page].name,
                         color = Gold400,
-                        style = MaterialTheme.typography.headlineMedium
+                        style = MaterialTheme.typography.headlineSmall
                     )
                 }
             }
@@ -107,7 +107,7 @@ fun DrawImage(
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)
+                .padding(horizontal = 20.dp, vertical = 6.dp)
                 .animatePagerTransition(pagerState, page)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
