@@ -26,7 +26,7 @@ import com.pachuho.lolworldview.ui.theme.Gold200
 @Composable
 fun ChampionCard(
     champion: Champion,
-    oncClick: (String) -> Unit
+    onClick: (Champion) -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxWidth(),
@@ -37,7 +37,7 @@ fun ChampionCard(
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .clickable { oncClick(champion.id) },
+                .clickable { onClick(champion) },
             model = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg",
             loading = placeholder(R.drawable.ic_background3),
             failure = placeholder(R.drawable.ic_timo_card),

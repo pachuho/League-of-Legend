@@ -20,7 +20,7 @@ import com.pachuho.lolworldview.data.model.Champion
 @Composable
 fun ChampionScreen(
     champions: List<Champion>,
-    onClick: (String) -> Unit
+    onClick: (Champion) -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +26,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.Champion
 import com.pachuho.lolworldview.data.model.ChampionTag
@@ -52,9 +55,9 @@ fun TagScreen(
             listOf(
                 R.drawable.ic_role_fighter,
                 R.drawable.ic_role_tank,
-                R.drawable.ic_role_marksman,
                 R.drawable.ic_role_mage,
                 R.drawable.ic_role_assassin,
+                R.drawable.ic_role_marksman,
                 R.drawable.ic_role_support,
             ),
             onPageChanged = {
@@ -82,7 +85,6 @@ private fun ImageWithoutUnBounds(
     @DrawableRes id: Int,
     offset: Dp
 ) {
-    val painter = painterResource(id = id)
     val animatedOffset by animateDpAsState(
         targetValue = offset, label = "",
         animationSpec = spring(
@@ -98,12 +100,12 @@ private fun ImageWithoutUnBounds(
             .offset(animatedOffset),
         contentDescription = null,
         contentScale = ContentScale.FillHeight,
-        painter = painter
+        painter = painterResource(id = id)
     )
 }
 
 @Composable
 @Preview(showBackground = true, widthDp = 320, heightDp = 640)
-fun CategoryScreenPreview() {
+fun TagScreenPreview() {
     TagScreen {}
 }

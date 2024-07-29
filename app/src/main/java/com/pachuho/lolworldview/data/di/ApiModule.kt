@@ -1,8 +1,9 @@
 package com.pachuho.lolworldview.data.di
 
-import com.pachuho.lolworldview.Constants
 import com.pachuho.lolworldview.data.interceptor.LoggerInterceptor
 import com.pachuho.lolworldview.data.remote.ChampionService
+import com.pachuho.lolworldview.data.remote.UrlConstants.BASE_URL
+import com.pachuho.lolworldview.data.remote.UrlConstants.VERSION
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +32,7 @@ object ApiModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl("${BASE_URL}/${VERSION}/")
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()

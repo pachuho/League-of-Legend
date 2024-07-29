@@ -23,14 +23,14 @@ sealed class Screen(
     }
 
     data object Detail : Screen(
-        route = "detail/{championId}",
-        navArguments = listOf(navArgument("championId") {
+        route = "detail/{champion}",
+        navArguments = listOf(navArgument("champion") {
             type = NavType.StringType
         })
     ) {
-        const val argument = "championId"
+        const val argument = "champion"
 
-        fun createRoute(championId: String) = "detail/${championId}"
+        fun createRoute(champion: String?) = "detail/${champion}"
 
     }
 }

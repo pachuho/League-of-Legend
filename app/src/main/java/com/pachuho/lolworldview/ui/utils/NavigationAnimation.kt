@@ -36,5 +36,5 @@ object NavigationAnimation {
         )
     }
 
-    private const val DURATION_MILLS = 700
+    private const val DURATION_MILLS = 500
 }
