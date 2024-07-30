@@ -38,32 +38,32 @@ val lolTypography = Typography(
     headlineMedium = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
+        fontSize = 30.sp,
         shadow = lolShadow
     ),
     headlineSmall = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 24.sp,
+        fontSize = 28.sp,
         shadow = lolShadow
     ),
 
     titleLarge = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
+        fontSize = 26.sp,
         shadow = lolShadow
     ),
     titleMedium = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 16.sp,
+        fontSize = 24.sp,
         shadow = lolShadow
     ),
     titleSmall = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
+        fontSize = 22.sp,
         shadow = lolShadow
     ),
 
@@ -76,32 +76,32 @@ val lolTypography = Typography(
     bodyMedium = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         shadow = lolShadow
     ),
     bodySmall = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
+        fontSize = 16.sp,
         shadow = lolShadow
     ),
 
     labelLarge = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Light,
-        fontSize = 20.sp,
+        fontSize = 14.sp,
         shadow = lolShadow
     ),
     labelMedium = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Light,
-        fontSize = 16.sp,
+        fontSize = 12.sp,
         shadow = lolShadow
     ),
     labelSmall = TextStyle(
         fontFamily = lolFontFamily,
         fontWeight = FontWeight.Light,
-        fontSize = 12.sp,
+        fontSize = 10.sp,
         shadow = lolShadow
     )
 )

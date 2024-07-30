@@ -54,9 +54,9 @@ fun LeagueOfLegendApp(
             ) { backStackEntry ->
                 backStackEntry.arguments?.getString(Screen.Champion.argument).let {
                     it?.deserializeList<Champion>()?.let { champions ->
-                        ChampionScreen(champions) { champion ->
+                        ChampionScreen(champions) { championId ->
                             navController.navigate(
-                                Screen.Detail.createRoute(champion.serialize())
+                                Screen.Detail.createRoute(championId)
                             )
                         }
                     } ?: run {
@@ -74,13 +74,11 @@ fun LeagueOfLegendApp(
                 popEnterTransition = popEnterTransition,
                 popExitTransition = popExitTransition
             ) { backStackEntry ->
-                backStackEntry.arguments?.getString(Screen.Detail.argument).let {
-                    it?.deserialize<Champion>()?.let {
-                        DetailScreen(it)
-                    } ?: run {
-                        LaunchedEffect(Unit) {
-                            context.showToast(context.getString(R.string.fail_champions))
-                        }
+                backStackEntry.arguments?.getString(Screen.Detail.argument)?.let {
+                    DetailScreen(it)
+                } ?: run {
+                    LaunchedEffect(Unit) {
+                        context.showToast(context.getString(R.string.fail_champions))
                     }
                 }
             }

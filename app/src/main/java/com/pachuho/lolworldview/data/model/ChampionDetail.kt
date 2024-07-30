@@ -4,16 +4,16 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class ChampionInfo (
-    @field:Json(name = "id") val id: String = "",
-    @field:Json(name = "name") val name: String? = null,
-    @field:Json(name = "title") val title: String? = null,
-    @field:Json(name = "lore") val lore: String? = null,
-    @field:Json(name = "image") val image: Image? = null,
-    @field:Json(name = "tags") val tags: List<String>? = null,
-    @field:Json(name = "skins") val skins: List<Skin>? = null,
-    @field:Json(name = "spells") val spells: List<Spell>? = null,
-    @field:Json(name = "passive") val passive: Passive? = null,
+data class ChampionDetail (
+    @field:Json(name = "id") val id: String,
+    @field:Json(name = "name") val name: String,
+    @field:Json(name = "image") val image: Image,
+    @field:Json(name = "title") val title: String,
+    @field:Json(name = "tags") val tags: List<String>,
+    @field:Json(name = "lore") val lore: String,
+    @field:Json(name = "spells") val spells: List<Spell>,
+    @field:Json(name = "passive") val passive: Passive,
+    @field:Json(name = "skins") val skins: List<Skin>,
 ) {
 
     @JsonClass(generateAdapter = true)
@@ -33,16 +33,20 @@ data class ChampionInfo (
     @JsonClass(generateAdapter = true)
     data class Passive(
         @field:Json(name = "name") val name: String,
-        @field:Json(name = "description") val description: String,
+        @field:Json(name = "description") val rawDescription: String,
         @field:Json(name = "image") val image: Image
-    )
+    ) {
+        private fun removeTags(input: String): String {
+            val regex = "<[^>]+>".toRegex()
+            return input.replace(regex, "")
+        }
+        val description: String
+            get() = removeTags(rawDescription)
+
+    }
 
     @JsonClass(generateAdapter = true)
     data class Image(
         @field:Json(name = "full") val fileName: String
     )
-
-    companion object {
-        val EMPTY = ChampionInfo()
-    }
 }

@@ -1,7 +1,7 @@
 package com.pachuho.lolworldview.data.repository
 
 import com.pachuho.lolworldview.data.model.Champion
-import com.pachuho.lolworldview.data.model.ChampionInfo
+import com.pachuho.lolworldview.data.model.ChampionDetail
 import com.pachuho.lolworldview.data.remote.ChampionService
 import com.pachuho.lolworldview.data.utils.fetchList
 import com.pachuho.lolworldview.data.utils.fetchWithUiState
@@ -18,7 +18,7 @@ class LOLRepositoryImpl @Inject constructor(
         fetchList(championService.fetchAllChampions())
     }.catch { it.message }
 
-    override fun getChampionInfo(championId: String): Flow<UiState<ChampionInfo>> = flow {
+    override fun getChampionInfo(championId: String): Flow<UiState<ChampionDetail>> = flow {
         fetchWithUiState(championService.fetchChampionInfo(championId))
     }.catch { UiState.Error(it) }
 }

@@ -1,30 +1,33 @@
 package com.pachuho.lolworldview.ui.screen.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.pachuho.lolworldview.data.remote.UrlConstants
-import com.pachuho.lolworldview.R
-import com.pachuho.lolworldview.data.model.Champion
-import com.pachuho.lolworldview.ui.theme.Gold200
 import com.pachuho.lolworldview.ui.theme.Gray500
+import com.pachuho.lolworldview.ui.utils.UiState
+import com.pachuho.lolworldview.ui.utils.successOrNull
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun DetailScreen(champion: Champion) {
+fun DetailScreen(
+    championId: String,
+    viewModel: DetailViewModel = hiltViewModel()
+) {
+    val uiState = viewModel.champion.collectAsStateWithLifecycle()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -32,38 +35,32 @@ fun DetailScreen(champion: Champion) {
     ) {
 
         Column(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // todo update
-//            GlideImage(
-//                modifier = Modifier.fillMaxWidth(),
-//                model = Constants.getChampionSplashImage(champion.id),
-//                contentDescription = null
-//            )
-
-            Image(
+            GlideImage(
                 modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(id = R.drawable.ic_aartrox_splash),
+                model = UrlConstants.getChampionSplashImage(championId),
                 contentDescription = null
             )
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+//            Image(
+//                modifier = Modifier.fillMaxWidth(),
+//                painter = painterResource(id = R.drawable.ic_aartrox_splash),
+//                contentDescription = null
+//            )
 
-                CombinedImage(
-                    modifier = Modifier.offset(y = (-55).dp),
-                    borderImage = painterResource(id = R.drawable.ic_border),
-                    championImageUrl = UrlConstants.getSquareImage(champion.id),
-                    imageSize = 100.dp
-                )
+            when (uiState.value) {
+                is UiState.Loading -> {}
+                is UiState.Error -> {}
+                is UiState.Success -> {
+                    uiState.value.successOrNull()?.let {
+                        ChampionElement(champion = it)
+                    } ?: run {
 
-                Text(
-                    modifier = Modifier.offset(y = (-45).dp),
-                    text = champion.name,
-                    color = Gold200,
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                    }
+                }
             }
         }
 
@@ -74,11 +71,5 @@ fun DetailScreen(champion: Champion) {
 @Composable
 @Preview(showBackground = true, widthDp = 320, heightDp = 640)
 fun DetailScreenPreview() {
-    DetailScreen(
-        Champion(
-            "Aatrox",
-            "Aatrox",
-            "the Darkin Blade",
-        )
-    )
+    DetailScreen("Aatrox")
 }
