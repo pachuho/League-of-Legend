@@ -68,12 +68,9 @@ fun TagScreen(
                 currentPage = it
             },
             onClick = { page ->
-                champions.value.successOrNull()?.let {
-                    it.filter { it.tags?.first() == ChampionTag.entries[page].name }
-                        .let(onClick)
-
-                } ?: run {
-                    context.showToast(context.getString(R.string.fail_champions))
+                when (champions.value.isNotEmpty()) {
+                    true -> champions.value.filter { it.tags?.first() == ChampionTag.entries[page].name }.let(onClick)
+                    false -> context.showToast(context.getString(R.string.fail_champions))
                 }
             }
         )
