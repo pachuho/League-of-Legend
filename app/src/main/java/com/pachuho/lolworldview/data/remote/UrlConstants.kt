@@ -7,5 +7,6 @@ object UrlConstants {
     fun getChampionSplashImage(id: String) = "${BASE_URL}/img/champion/splash/${id}_0.jpg"
     fun getChampionSquareImage(id: String) = "${BASE_URL}/${VERSION}/img/champion/$id.png"
     fun getChampionPassiveImage(fileName: String) = "${BASE_URL}/${VERSION}/img/passive/$fileName"
-    fun getChampionSpellImage(spell: String) = "${BASE_URL}/${VERSION}/img/passive/$spell.png"
+    fun getChampionSpellImage(spell: String) = "${BASE_URL}/${VERSION}/img/spell/$spell"
+    fun getChampionLoadingImage(fileName: String) = "${BASE_URL}/img/champion/loading/$fileName.jpg"
 }

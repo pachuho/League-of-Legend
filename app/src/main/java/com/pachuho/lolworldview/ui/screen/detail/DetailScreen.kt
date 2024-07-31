@@ -15,7 +15,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
+import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.remote.UrlConstants
+import com.pachuho.lolworldview.ui.screen.detail.component.ChampionElement
 import com.pachuho.lolworldview.ui.theme.Gray500
 import com.pachuho.lolworldview.ui.utils.UiState
 import com.pachuho.lolworldview.ui.utils.successOrNull
@@ -38,18 +41,13 @@ fun DetailScreen(
             modifier = Modifier.verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // todo update
+
             GlideImage(
                 modifier = Modifier.fillMaxWidth(),
                 model = UrlConstants.getChampionSplashImage(championId),
+                loading = placeholder(R.drawable.ic_background3),
                 contentDescription = null
             )
-
-//            Image(
-//                modifier = Modifier.fillMaxWidth(),
-//                painter = painterResource(id = R.drawable.ic_aartrox_splash),
-//                contentDescription = null
-//            )
 
             when (uiState.value) {
                 is UiState.Loading -> {}

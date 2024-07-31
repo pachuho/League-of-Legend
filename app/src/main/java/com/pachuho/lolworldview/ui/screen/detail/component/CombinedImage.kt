@@ -1,4 +1,4 @@
-package com.pachuho.lolworldview.ui.screen.detail
+package com.pachuho.lolworldview.ui.screen.detail.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

@@ -1,4 +1,4 @@
-package com.pachuho.lolworldview.ui.screen.detail
+package com.pachuho.lolworldview.ui.screen.detail.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -99,7 +99,7 @@ fun ChampionElement(champion: ChampionDetail) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 30.dp)
+                    .padding(top = 30.dp, bottom = 60.dp)
                     .wrapContentHeight()
                     .background(Blue700, RoundedCornerShape(6.dp))
                     .border(2.dp, Gray100, RoundedCornerShape(6.dp))
@@ -114,12 +114,14 @@ fun ChampionElement(champion: ChampionDetail) {
                 )
             }
 
-//            ChampionSkill(
-//                modifier = Modifier.padding(top = 30.dp),
-//                passive = champion.passive,
-//                spells = champion.spells
-//            )
+            PassiveDetail(champion.passive)
+            SpellsDetail(champion.spells)
 
+            ChampionSkinPager(
+                modifier = Modifier.padding(vertical = 100.dp),
+                championId = champion.id,
+                skins = champion.skins
+            )
         }
     }
 }
