@@ -99,7 +99,7 @@ fun ChampionElement(champion: ChampionDetail) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 30.dp, bottom = 60.dp)
+                    .padding(top = 30.dp, bottom = 70.dp)
                     .wrapContentHeight()
                     .background(Blue700, RoundedCornerShape(6.dp))
                     .border(2.dp, Gray100, RoundedCornerShape(6.dp))
@@ -159,25 +159,25 @@ fun ChampionDetailPreview() {
                 ChampionDetail.Spell(
                     id = "AatroxQ",
                     name = "The Darkin Blade",
-                    description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
+                    rawDescription = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
                     image = ChampionDetail.Image("AatroxQ.png")
                 ),
                 ChampionDetail.Spell(
                     id = "AatroxW",
                     name = "The Darkin Blade",
-                    description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
+                    rawDescription = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
                     image = ChampionDetail.Image("AatroxW.png")
                 ),
                 ChampionDetail.Spell(
                     id = "AatroxE",
                     name = "The Darkin Blade",
-                    description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
+                    rawDescription = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
                     image = ChampionDetail.Image("AatroxE.png")
                 ),
                 ChampionDetail.Spell(
                     id = "AatroxR",
                     name = "The Darkin Blade",
-                    description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
+                    rawDescription = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
                     image = ChampionDetail.Image("AatroxR.png")
                 )
             ),

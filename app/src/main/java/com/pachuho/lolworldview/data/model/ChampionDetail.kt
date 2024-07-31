@@ -26,9 +26,12 @@ data class ChampionDetail (
     data class Spell(
         @field:Json(name = "id") val id: String,
         @field:Json(name = "name") val name: String,
-        @field:Json(name = "description") val description: String,
+        @field:Json(name = "description") val rawDescription: String,
         @field:Json(name = "image") val image: Image
-    )
+    ) {
+        val description: String
+            get() = removeTags(rawDescription)
+    }
 
     @JsonClass(generateAdapter = true)
     data class Passive(
@@ -36,17 +39,17 @@ data class ChampionDetail (
         @field:Json(name = "description") val rawDescription: String,
         @field:Json(name = "image") val image: Image
     ) {
-        private fun removeTags(input: String): String {
-            val regex = "<[^>]+>".toRegex()
-            return input.replace(regex, "")
-        }
         val description: String
             get() = removeTags(rawDescription)
-
     }
 
     @JsonClass(generateAdapter = true)
     data class Image(
         @field:Json(name = "full") val fileName: String
     )
+}
+
+fun removeTags(input: String): String {
+    val regex = "<[^>]+>".toRegex()
+    return input.replace(regex, "")
 }

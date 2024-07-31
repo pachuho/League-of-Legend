@@ -33,6 +33,7 @@ import com.pachuho.lolworldview.ui.theme.Gold200
 fun PassiveDetail(passive: Passive) {
     ChampionSkill(
         isPassive = true,
+        id = "P",
         name = passive.name,
         description = passive.description,
         fileName = passive.image.fileName
@@ -41,9 +42,10 @@ fun PassiveDetail(passive: Passive) {
 
 @Composable
 fun SpellsDetail(spells: List<Spell>) {
-    spells.forEach { spell ->
+    spells.forEachIndexed { index, spell ->
         ChampionSkill(
             isPassive = false,
+            id = getSpellTag(index),
             name = spell.name,
             description = spell.description,
             fileName = spell.image.fileName
@@ -55,6 +57,7 @@ fun SpellsDetail(spells: List<Spell>) {
 @Composable
 fun ChampionSkill(
     isPassive: Boolean,
+    id: String,
     name: String,
     description: String,
     fileName: String
@@ -83,8 +86,7 @@ fun ChampionSkill(
             )
 
             Text(
-                modifier = Modifier.padding(top = 2.dp),
-                text = "P",
+                text = id.last().toString(),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = Gold200
@@ -97,7 +99,6 @@ fun ChampionSkill(
                 .padding(start = 8.dp)
         ) {
             Text(
-                modifier = Modifier.padding(top = 4.dp),
                 text = name,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
@@ -124,6 +125,16 @@ private fun getImageModel(
     }
 }
 
+private fun getSpellTag(index: Int): String {
+    return when(index) {
+        0 -> "Q"
+        1 -> "W"
+        2 -> "E"
+        3 -> "R"
+        else -> "N"
+    }
+}
+
 @Preview
 @Composable
 fun ChampionSpellPreview() {
@@ -144,26 +155,8 @@ fun SpellsDetailPreview() {
             Spell(
                 id = "AatroxQ",
                 name = "The Darkin Blade",
-                description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
+                rawDescription = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
                 image = Image("AatroxQ.png")
-            ),
-            Spell(
-                id = "AatroxW",
-                name = "The Darkin Blade",
-                description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
-                image = Image("AatroxW.png")
-            ),
-            Spell(
-                id = "AatroxE",
-                name = "The Darkin Blade",
-                description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
-                image = Image("AatroxE.png")
-            ),
-            Spell(
-                id = "AatroxR",
-                name = "The Darkin Blade",
-                description = "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect.",
-                image = Image("AatroxR.png")
             )
         )
     )
