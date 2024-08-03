@@ -29,12 +29,11 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.placeholder
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.remote.UrlConstants
 import com.pachuho.lolworldview.ui.screen.detail.component.ChampionElement
 import com.pachuho.lolworldview.ui.theme.Gray500
+import com.pachuho.lolworldview.ui.utils.Glide
 import com.pachuho.lolworldview.ui.utils.UiState
 import com.pachuho.lolworldview.ui.utils.successOrNull
 import kotlinx.coroutines.delay
@@ -64,16 +63,15 @@ fun DetailScreen(
             .background(Gray500)
             .verticalScroll(rememberScrollState()),
     ) {
-        GlideImage(
+        Glide(
             modifier = Modifier
                 .fillMaxWidth()
                 .graphicsLayer(
                     scaleX = imageScale.value,
                     scaleY = imageScale.value
                 ),
-            model = UrlConstants.getChampionSplashImage(championId),
-            loading = placeholder(R.drawable.ic_background2),
-            contentDescription = null
+            imageUrl = UrlConstants.getChampionSplashImage(championId),
+            loadingImageResource = R.drawable.ic_loading_splash
         )
 
         AnimatedVisibility(

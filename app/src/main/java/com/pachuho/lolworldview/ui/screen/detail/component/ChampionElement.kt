@@ -21,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.ChampionDetail
 import com.pachuho.lolworldview.data.model.ChampionTag
 import com.pachuho.lolworldview.data.remote.UrlConstants

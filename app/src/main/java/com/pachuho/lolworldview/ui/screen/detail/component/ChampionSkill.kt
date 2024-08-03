@@ -19,15 +19,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.placeholder
 import com.pachuho.lolworldview.R
-import com.pachuho.lolworldview.data.model.ChampionDetail.Spell
 import com.pachuho.lolworldview.data.model.ChampionDetail.Image
 import com.pachuho.lolworldview.data.model.ChampionDetail.Passive
+import com.pachuho.lolworldview.data.model.ChampionDetail.Spell
 import com.pachuho.lolworldview.data.remote.UrlConstants
 import com.pachuho.lolworldview.ui.theme.Gold100
 import com.pachuho.lolworldview.ui.theme.Gold200
+import com.pachuho.lolworldview.ui.utils.Glide
 
 @Composable
 fun PassiveDetail(passive: Passive) {
@@ -75,14 +74,13 @@ fun ChampionSkill(
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            GlideImage(
+            Glide(
                 modifier = Modifier
                     .size(60.dp)
                     .clip(RoundedCornerShape(4.dp))
                     .border(1.2.dp, Gold200, RoundedCornerShape(4.dp)),
-                model = getImageModel(isPassive, fileName),
-                loading = placeholder(R.drawable.ic_passive_anivia), // todo fix
-                contentDescription = null
+                imageUrl = getImageModel(isPassive, fileName),
+                loadingImageResource = R.drawable.ic_loading_skill
             )
 
             Text(

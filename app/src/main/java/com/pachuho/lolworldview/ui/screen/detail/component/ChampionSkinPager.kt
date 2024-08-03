@@ -25,12 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import animatePagerTransition
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.placeholder
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.ChampionDetail.Skin
 import com.pachuho.lolworldview.data.remote.UrlConstants
 import com.pachuho.lolworldview.ui.theme.Gold400
+import com.pachuho.lolworldview.ui.utils.Glide
 import kotlin.math.abs
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalGlideComposeApi::class)
@@ -41,7 +40,7 @@ fun ChampionSkinPager(
 ) {
     val pagerState = rememberPagerState(pageCount = { skins.size })
 
-    Box(modifier = Modifier.padding(top = 80.dp, bottom = 220.dp)) {
+    Box(modifier = Modifier.padding(top = 80.dp, bottom = 240.dp)) {
         CompositionLocalProvider(
             LocalOverscrollConfiguration provides null
         ) {
@@ -55,14 +54,12 @@ fun ChampionSkinPager(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    GlideImage(
+                    Glide(
                         modifier = Modifier
                             .size(400.dp)
                             .animatePagerTransition(pagerState, page),
-                        model = UrlConstants.getChampionLoadingImage("${championId}_${skins[page].num}"),
-                        loading = placeholder(R.drawable.ic_loading_aatrox_0),
-                        failure = placeholder(R.drawable.ic_loading_aatrox_0),
-                        contentDescription = null,
+                        imageUrl = UrlConstants.getChampionLoadingImage("${championId}_${skins[page].num}"),
+                        loadingImageResource = R.drawable.ic_loading_skin
                     )
 
                     Text(
