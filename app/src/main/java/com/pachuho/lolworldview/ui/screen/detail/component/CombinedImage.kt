@@ -10,21 +10,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
+import com.pachuho.lolworldview.R
+import com.pachuho.lolworldview.data.remote.UrlConstants
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CombinedImage(
-    modifier: Modifier,
-    borderImage: Painter,
     championImageUrl: String,
     imageSize: Dp
 ) {
     Box(
-        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
 
@@ -39,8 +41,17 @@ fun CombinedImage(
             modifier = Modifier
                 .size(imageSize)
                 .blur(1.dp),
-            painter = borderImage,
+            painter = painterResource(id = R.drawable.ic_border),
             contentDescription = null
         )
     }
+}
+
+@Preview
+@Composable
+fun CombineImagePreview() {
+    CombinedImage(
+        championImageUrl = UrlConstants.getChampionSquareImage(""),
+        imageSize = 100.dp
+    )
 }

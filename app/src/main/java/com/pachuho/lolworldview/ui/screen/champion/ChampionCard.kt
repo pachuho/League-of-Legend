@@ -20,6 +20,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.pachuho.lolworldview.R
 import com.pachuho.lolworldview.data.model.Champion
+import com.pachuho.lolworldview.data.remote.UrlConstants
 import com.pachuho.lolworldview.ui.theme.Gold200
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -38,9 +39,9 @@ fun ChampionCard(
                 .padding(10.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .clickable { onClick(champion.id) },
-            model = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg",
-            loading = placeholder(R.drawable.ic_background3),
-            failure = placeholder(R.drawable.ic_timo_card),
+            model = UrlConstants.getChampionSplashImage(champion.id),
+            loading = placeholder(R.drawable.ic_background2),
+            failure = placeholder(R.drawable.ic_square_aatrox),
             contentScale = ContentScale.Crop,
             contentDescription = null
         )

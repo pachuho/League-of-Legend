@@ -36,13 +36,12 @@ import kotlin.math.abs
 @OptIn(ExperimentalFoundationApi::class, ExperimentalGlideComposeApi::class)
 @Composable
 fun ChampionSkinPager(
-    modifier: Modifier,
     championId: String,
     skins: List<Skin>
 ) {
     val pagerState = rememberPagerState(pageCount = { skins.size })
 
-    Box(modifier = modifier) {
+    Box(modifier = Modifier.padding(top = 80.dp, bottom = 220.dp)) {
         CompositionLocalProvider(
             LocalOverscrollConfiguration provides null
         ) {
@@ -103,7 +102,6 @@ private fun getTextAlpha(
 @Composable
 fun ChampionSkinsPreview() {
     ChampionSkinPager(
-        modifier = Modifier,
         championId = "Aatrox",
         skins = listOf(
             Skin(0, "default"),

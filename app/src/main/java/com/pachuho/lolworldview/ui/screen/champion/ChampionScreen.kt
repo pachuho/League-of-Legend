@@ -30,7 +30,7 @@ fun ChampionScreen(
                 .fillMaxSize()
                 .blur(10.dp),
             contentScale = ContentScale.Crop,
-            painter = painterResource(R.drawable.ic_background3),
+            painter = painterResource(R.drawable.ic_background2),
             contentDescription = null
         )
 

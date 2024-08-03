@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -33,97 +32,90 @@ import com.pachuho.lolworldview.ui.theme.Gray100
 @Composable
 fun ChampionElement(champion: ChampionDetail) {
     Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(horizontal = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         CombinedImage(
-            modifier = Modifier.offset(y = (-55).dp),
-            borderImage = painterResource(id = R.drawable.ic_border),
             championImageUrl = UrlConstants.getChampionSquareImage(champion.id),
             imageSize = 100.dp
         )
 
         Text(
-            modifier = Modifier.offset(y = (-50).dp),
+            modifier = Modifier.padding(top = 30.dp),
             text = champion.name,
             color = Gold200,
             style = MaterialTheme.typography.headlineMedium
         )
 
-        Column(
+        Text(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally),
+            style = MaterialTheme.typography.bodyLarge,
+            text = champion.title,
+            color = Gold200,
+            textAlign = TextAlign.Start
+        )
+
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(horizontal = 10.dp)
+                .padding(vertical = 30.dp),
+            horizontalArrangement = Arrangement.Center,
         ) {
-            Text(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .offset(y = (-50).dp),
-                style = MaterialTheme.typography.bodyLarge,
-                text = champion.title,
-                color = Gold200,
-                textAlign = TextAlign.Start
-            )
-
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp),
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    champion.tags.forEach {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Image(
-                                modifier = Modifier.size(70.dp),
-                                painter = painterResource(id = ChampionTag.getImageResource(it)),
-                                contentDescription = null
-                            )
-                            Text(
-                                modifier = Modifier.offset(y = (-6).dp),
-                                text = it,
-                                color = Gold200,
-                                fontWeight = FontWeight.Bold,
-                                style = MaterialTheme.typography.labelLarge
-                            )
-                        }
+                champion.tags.forEach {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            modifier = Modifier.size(70.dp),
+                            painter = painterResource(id = ChampionTag.getImageResource(it)),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = it,
+                            color = Gold200,
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.labelLarge
+                        )
                     }
                 }
             }
+        }
 
-            Column(
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 70.dp)
+                .wrapContentHeight()
+                .background(Blue700, RoundedCornerShape(6.dp))
+                .border(2.dp, Gray100, RoundedCornerShape(6.dp))
+        ) {
+            Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp, bottom = 70.dp)
-                    .wrapContentHeight()
-                    .background(Blue700, RoundedCornerShape(6.dp))
-                    .border(2.dp, Gray100, RoundedCornerShape(6.dp))
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(vertical = 10.dp, horizontal = 14.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    text = champion.lore,
-                    color = Gold200,
-                    textAlign = TextAlign.Start
-                )
-            }
-
-            PassiveDetail(champion.passive)
-            SpellsDetail(champion.spells)
-
-            ChampionSkinPager(
-                modifier = Modifier.padding(vertical = 100.dp),
-                championId = champion.id,
-                skins = champion.skins
+                    .padding(vertical = 10.dp, horizontal = 14.dp),
+                style = MaterialTheme.typography.bodyMedium,
+                text = champion.lore,
+                color = Gold200,
+                textAlign = TextAlign.Start
             )
         }
+
+        PassiveDetail(champion.passive)
+        SpellsDetail(champion.spells)
+
+        ChampionSkinPager(
+            championId = champion.id,
+            skins = champion.skins
+        )
     }
+
 }
 
 @Composable
