@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.pachuho.lolworldview"
+    namespace = "com.pachuho.lol"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.pachuho.lolworldview"
+        applicationId = "com.pachuho.lol"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

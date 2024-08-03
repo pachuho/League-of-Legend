@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LOLWorldview"
+rootProject.name = "league-of-legend"
 include(":app")
