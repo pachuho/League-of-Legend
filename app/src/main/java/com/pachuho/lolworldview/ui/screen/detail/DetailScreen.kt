@@ -47,14 +47,15 @@ fun DetailScreen(
     val uiState = viewModel.champion.collectAsStateWithLifecycle()
     val imageScale = remember { Animatable(1.3f) }
     var isContentVisible by remember { mutableStateOf(false) }
+    val animationDurationMillis = 1500
 
     LaunchedEffect(Unit) {
         delay(500)
+        isContentVisible = true
         imageScale.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = 1000)
+            animationSpec = tween(durationMillis = animationDurationMillis)
         )
-        isContentVisible = true
     }
 
     Box(
@@ -76,11 +77,11 @@ fun DetailScreen(
 
         AnimatedVisibility(
             visible = isContentVisible,
-            enter = fadeIn(animationSpec = tween(1000)) + slideInVertically(
-                initialOffsetY = { it / 10 } // 살짝 아래에서 시작
+            enter = fadeIn(animationSpec = tween(animationDurationMillis)) + slideInVertically(
+                initialOffsetY = { it / 10 }
             ),
-            exit = fadeOut(animationSpec = tween(1000)) + slideOutVertically(
-                targetOffsetY = { it / 10 } // 살짝 아래로 사라짐
+            exit = fadeOut(animationSpec = tween(animationDurationMillis)) + slideOutVertically(
+                targetOffsetY = { it / 10 }
             )
         ) {
             Column(
