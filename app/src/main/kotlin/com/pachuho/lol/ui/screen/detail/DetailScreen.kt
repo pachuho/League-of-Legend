@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,6 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,6 +52,10 @@ fun DetailScreen(
     val imageScale = remember { Animatable(1.3f) }
     var isContentVisible by remember { mutableStateOf(false) }
     val animationDurationMillis = 1500
+    val configuration = LocalContext.current.resources.configuration
+    val screenHeightPx = with(LocalDensity.current) { configuration.screenHeightDp.dp.toPx() }
+    val imageHeightPx = screenHeightPx * 0.3f
+    val offsetPx = imageHeightPx * 0.75f
 
     LaunchedEffect(Unit) {
         delay(500)
@@ -67,6 +75,7 @@ fun DetailScreen(
         Glide(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(with(LocalDensity.current) { imageHeightPx.toDp() })
                 .graphicsLayer(
                     scaleX = imageScale.value,
                     scaleY = imageScale.value
@@ -87,7 +96,7 @@ fun DetailScreen(
             Column(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
-                    .offset(y = 190.dp)
+                    .offset { IntOffset(0, offsetPx.toInt()) }
                     .zIndex(1f)
             ) {
 
